@@ -34,7 +34,7 @@ const Home: React.FC = () => {
 
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState<Post[]>([]);
-  const [searchTimeout, setSearchTimeout] = useState<number | undefined>(undefined);
+  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | undefined>(undefined);
 
   useEffect(() => {
     const fetchPosts = async () => {

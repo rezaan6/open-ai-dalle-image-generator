@@ -42,7 +42,7 @@ const CreatePost = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (form.prompt && form.photo) {
       setLoading(true);
@@ -68,7 +68,7 @@ const CreatePost = () => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: any; value: any; }; }) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
