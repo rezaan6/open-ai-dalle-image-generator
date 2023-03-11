@@ -1,6 +1,17 @@
 import React from "react";
 
-const FormField = ({
+interface FormFieldProps {
+  labelName: string;
+  type: string;
+  name: string;
+  placeholder: string;
+  value: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  isSurpriseMe?: boolean;
+  handleSurpriseMe?: () => void;
+}
+
+const FormField: React.FC<FormFieldProps> = ({
   labelName,
   type,
   name,
@@ -13,10 +24,7 @@ const FormField = ({
   return (
     <div>
       <div className="flex items-center gap-2 mb-2">
-        <label
-          htmlFor={name}
-          className="block text-sm font-medium text-gray-900"
-        >
+        <label htmlFor={name} className="block text-sm font-medium text-gray-900">
           {labelName}
         </label>
         {isSurpriseMe && (

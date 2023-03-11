@@ -20,11 +20,14 @@ const CreatePost = () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        const response = await fetch("https://open-ai-dalle-2-image-generator.onrender.com/api/v1/dalle", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: form.prompt }),
-        });
+        const response = await fetch(
+          "https://open-ai-dalle-2-image-generator.onrender.com/api/v1/dalle",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt: form.prompt }),
+          }
+        );
 
         const data = await response.json();
 
@@ -44,16 +47,19 @@ const CreatePost = () => {
     if (form.prompt && form.photo) {
       setLoading(true);
       try {
-        const response = await fetch("https://open-ai-dalle-2-image-generator.onrender.com/api/v1/post", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        });
+        const response = await fetch(
+          "https://open-ai-dalle-2-image-generator.onrender.com/api/v1/post",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(form),
+          }
+        );
 
         await response.json();
         navigate("/");
       } catch (error) {
-        alert(err);
+        alert(error);
       } finally {
         setLoading(false);
       }
@@ -76,8 +82,8 @@ const CreatePost = () => {
       <div>
         <h1 className="font-extrabold text-[#222328] text-[32px]">Create</h1>
         <p className="mt-2 text-[#666e75] text-[16px] max-w[500px]">
-          Create imaginative and visually stunning images through DALL-E AI and
-          share them with the community.
+          Create imaginative and visually stunning images through DALL-E AI and share them with the
+          community.
           <br />
           <br />
           <u>Its takes around 60s to generate.</u>
@@ -87,7 +93,7 @@ const CreatePost = () => {
       <form className="mt-16 max-w-3xl" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5">
           <FormField
-            LabelName="Your name"
+            labelName="Your name"
             type="text"
             name="name"
             placeholder="John Doe"
@@ -95,7 +101,7 @@ const CreatePost = () => {
             handleChange={handleChange}
           />
           <FormField
-            LabelName="Prompt"
+            labelName="Prompt"
             type="text"
             name="prompt"
             placeholder="A plush toy robot sitting against a yellow wall"
@@ -110,11 +116,7 @@ const CreatePost = () => {
           rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center "
           >
             {form.photo ? (
-              <img
-                src={form.photo}
-                alt={form.prompt}
-                className="w-full h-full object-contain"
-              />
+              <img src={form.photo} alt={form.prompt} className="w-full h-full object-contain" />
             ) : (
               <img
                 src={preview}
@@ -146,8 +148,7 @@ const CreatePost = () => {
 
         <div className="mt-10">
           <p className="mt-2 text-[#666e75] text-[14px]">
-            Once you have created the image you want, you can share it with
-            others in the community
+            Once you have created the image you want, you can share it with others in the community
           </p>
           <button
             type="submit"

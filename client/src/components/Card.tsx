@@ -3,14 +3,17 @@ import React from "react";
 import { download } from "../assets";
 import { downloadImage } from "../utils";
 
-const Card = ({ _id, name, prompt, photo }) => {
+interface CardProps {
+  _id: string;
+  name: string;
+  prompt: string;
+  photo?: string;
+}
+
+const Card: React.FC<CardProps> = ({ _id, name, prompt, photo }) => {
   return (
     <div className="rounded-xl group relative shadow-card hover:shadow-cardhover card">
-      <img
-        src={photo}
-        alt={prompt}
-        className="w-full h-auto object-cover rounded-xl"
-      />
+      <img src={photo} alt={prompt} className="w-full h-auto object-cover rounded-xl" />
       <div
         className="group-hover:flex flex-col max-h-[94.5%] hidden absolute bottom-0 
       left-0 right-0 bg-[#10131f] m-2 p-4 rounded-md"
@@ -33,11 +36,7 @@ const Card = ({ _id, name, prompt, photo }) => {
             onClick={() => downloadImage(_id, photo)}
             className="outline-none bg-transparent border-none"
           >
-            <img
-              src={download}
-              alt="download"
-              className="w-6 h-6 object-contain invert"
-            />
+            <img src={download} alt="download" className="w-6 h-6 object-contain invert" />
           </button>
         </div>
       </div>
