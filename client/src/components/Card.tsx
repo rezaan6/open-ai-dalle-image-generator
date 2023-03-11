@@ -7,7 +7,7 @@ interface CardProps {
   _id: string;
   name: string;
   prompt: string;
-  photo?: string;
+  photo?: any;
 }
 
 const Card: React.FC<CardProps> = ({ _id, name, prompt, photo }) => {
