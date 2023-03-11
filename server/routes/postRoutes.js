@@ -18,7 +18,12 @@ cloudinary.config({
 router.route("/").get(async (req, res) => {
   try {
     const posts = await Post.find({});
-    res.status(200).json({ success: true, data: posts });
+    const updatedPosts = posts.map((post) => {
+      const updatedPost = { ...post._doc };
+      updatedPost.photo = updatedPost.photo.replace("http", "https");
+      return updatedPost;
+    });
+    res.status(200).json({ success: true, data: updatedPosts });
   } catch (error) {
     res.status(200).json({ success: false, message: error });
   }
