@@ -23,6 +23,8 @@ router.route("/").get(async (req, res) => {
       updatedPost.photo = cloudinary.url(post.photo);
       return updatedPost;
     });
+
+    console.log(updatedPosts);
     res.status(200).json({ success: true, data: updatedPosts });
   } catch (error) {
     res.status(200).json({ success: false, message: error });
