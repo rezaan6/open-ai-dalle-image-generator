@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import { Loader, FormField, Card } from "../components";
 
 interface Post {
@@ -34,7 +33,7 @@ const Home: React.FC = () => {
 
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState<Post[]>([]);
-  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | undefined>(undefined);
+  const [searchTimeout, setSearchTimeout] = useState<any>(undefined);
 
   useEffect(() => {
     const fetchPosts = async () => {

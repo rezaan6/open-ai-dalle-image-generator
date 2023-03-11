@@ -1,4 +1,3 @@
-// import FileSaver from "file-saver";
 import fileDownload from "js-file-download";
 import axios from "axios";
 
@@ -16,13 +15,9 @@ export function getRandomPrompt(prompt: string) {
 export async function downloadImage(_id: string, photo: any) {
   axios
     .get(photo, {
-      responseType: "blob"
+      responseType: "blob",
     })
     .then((res) => {
       fileDownload(res.data, `download-${_id}.jpg`);
     });
-
-  // FileSaver.saveAs(photo, `download-${_id}.jpg`);
 }
-
-
