@@ -13,62 +13,60 @@
 
 ## Description
 
-This chatbot is a complete solution for those looking to create a feature-rich chatbot with user authentication and data storage capabilities. The chatbot uses [OpenAI's language model](https://openai.com/language-models/) to generate responses to user inputs and presents them in a sleek and intuitive interface built using [Next.js](https://nextjs.org/) and styled with [TailwindCSS](https://tailwindcss.com/).
+In summary, this project is a full-stack web application that combines the Vite framework, Tailwind CSS, Prettier, ExpressJS, Cloudinary, and MongoDB to deliver a dynamic and efficient user experience.The output of this project is a real-time, interactive application that allows users to generate unique images and art based on their descriptions in natural language. The generated content is then stored and managed using Cloudinary, making it accessible and shareable across the web.
 
-User authentication is managed through [Google Sign-In](https://developers.google.com/identity/sign-in/web/sign-in), allowing users to easily sign in to the chatbot using their existing Google account. The chatbot also integrates with [Firebase](https://firebase.google.com/), a popular real-time database platform, to store and retrieve user data such as chat history and user preferences.
-This chatbot is written in [TypeScript](https://www.typescriptlang.org/), a statically typed superset of JavaScript, providing improved type checking and code reliability.
+## Client
+The "client" folder is a front-end application built using the [Vite framework](https://github.com/vitejs/vite). It utilizes the [Tailwind CSS](https://tailwindcss.com/) framework for styling and the [Prettier](https://prettier.io/) library for code formatting to deliver a visually appealing and well-structured user interface.
 
-By using Next.js, TailwindCSS, Firebase, Google Sign-In, and TypeScript, this chatbot offers a robust and scalable solution for those looking to create a feature-rich chatbot.
+## Server
+The "server" folder is a back-end component powered by [ExpressJS](https://expressjs.com/). It uses [Cloudinary](https://cloudinary.com/) to store and manage images, and is connected to a [MongoDB](https://mongodb.com) database for persistent data storage. It also utilizes the OpenAI's DALL·E 2 AI system, which generates realistic images and art from a description in natural language.
+
 
 ## Tech Stack
 
 - [React](https://reactjs.org/)
-- [Nextjs](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Firebase](https://firebase.google.com/)
-- [Nextauth](https://next-auth.js.org/)
+- [Vite](https://vitejs.dev/)
+- [MongoDB](https://www.mongodb.com/)
+- [Cloudinary](https://cloudinary.com/)
 - [Prettier](https://prettier.io/)
-- [React Hot Toast](https://react-hot-toast.com/)
+- [ExpressJS](https://expressjs.com/)
 - [Vercel](https://vercel.com/docs)
+- [Render](https://render.com/)
 
 ## Features (wait until GIFs load)
 
-- User authentication using Google Sign-In & Sign-Out
+- View list of images
 
-![screen-recorder-thu-mar-09-2023-22-03-02 (3)](https://user-images.githubusercontent.com/72515147/224102078-68ed47b7-7fb7-4c31-8692-6a95c4c50345.gif)
+![List of Images](https://user-images.githubusercontent.com/72515147/224482269-27877714-dc00-429d-99d8-2659ce3da9e5.gif)
 
-- Saved Chats are listed.
+- Download images.
 
-![Saved Chat](https://user-images.githubusercontent.com/72515147/224112616-61fa2407-9bf3-4a62-91fd-54cc1d00850f.gif)
 
-- New Chat can be created, takes to the new page.
 
-![New Chat](https://user-images.githubusercontent.com/72515147/224330362-12b32b6a-c8c6-4c52-ad16-79c199fb0753.gif)
+- Title and User included in each image.
 
-- Delete a saved Chats.
 
-![Delete](https://user-images.githubusercontent.com/72515147/224331044-3c715b37-fea8-4706-8be0-4c23dae0312e.gif)
 
-- Prompt to Chat button is enabled only when a value is entered.
+- Create and post the image
 
-![Prompt](https://user-images.githubusercontent.com/72515147/224332434-7c9a2646-ea7e-46c6-b58b-8cdf3450fa78.gif)
 
-- OpenAI model are viewed as selection Dropdown
 
-![Model Selection](https://user-images.githubusercontent.com/72515147/224333259-ba32529a-153b-4188-917a-b5d30416344f.gif)
+- Random prompt to generate.
 
-- Model selection placement supports responsive view.
 
-![Responsive Model Selection](https://user-images.githubusercontent.com/72515147/224337836-3fbc8416-fc37-42ed-a3d2-2b3bd80960f6.gif)
+- View generated image before sharing to community. 
 
-- Toast is displayed 
 
-![Toast](https://user-images.githubusercontent.com/72515147/224338953-9a8b1ff1-9cc9-41ac-ae15-2e5e47b1180c.gif)
 
-## Open AI API
-- `openAI.ts`
 
-This code is used to set up the OpenAI API in a project and provides a convenient way to access the API's functionality throughout the application. The API key is stored as an environment variable to keep it secure and prevent it from being hard-coded in the codebase.
+## Open AI DALL·E 2 API
+- `dalleRoutes.js`
+
+When a POST request is received at the root URL ("/"), the function defined in the code is executed. It starts by extracting the prompt from the request body and using it as a parameter in a call to the createImage method of the OpenAIApi instance. This method generates an image based on the prompt and returns the result in base64 encoded JSON format.
+
+The code then extracts the image data from the response and packages it in a JSON object with a property named photo. Finally, the JSON object is sent back to the client with a status code of 200 (OK), indicating that the request was successful.
+
+In the event of an error, the error message is logged to the console and sent back to the client with a status code of 500 (Internal Server Error), indicating that an internal server error occurred.
 
 ```
 import { Configuration, OpenAIApi } from "openai";
@@ -79,47 +77,63 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-export default openai;
-
-```
-
-- `queryApi.ts`
-
-This code demonstrates how to use the OpenAI API to generate a response to a user's input in a chat application. The query function can be used to get a response from the OpenAI model for any given prompt and model, making it a reusable component in the application.
-
-```
-import openai from "./openAI";
-
-const query = async (prompt: string, chatId: string, model: string) => {
-  return await openai
-    .createCompletion({
-      model,
+router.route("/").post(async (req, res) => {
+  try {
+    const { prompt } = req.body;
+    const aiResponse = await openai.createImage({
       prompt,
-      temperature: 0.9,
-      top_p: 1,
-      max_tokens: 1000,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-    })
-    .then((res) => {
-      return res.data.choices[0].text;
-    })
-    .catch((err) => `OpenAI was unable to find an answer for that! (Error: ${err.message}`);
-};
+      n: 1,
+      size: "256x256",
+      response_format: "b64_json",
+    });
 
-export default query;
+    const image = aiResponse.data.data[0].b64_json;
+
+    res.status(200).json({ photo: image });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error?.response.data.error.message);
+  }
+});
 
 ```
 
 ## Database Structure
+
+- MongoDB
 ```
-  .collection("user")
-  .doc(session?.user?.email!)
-  .collection("chats")
-  .doc(chatId)
-  .collection("messages")
-  .add(message);
+import mongoose from "mongoose";
+
+const Post = new mongoose.Schema({
+  name: { type: String, required: true },
+  prompt: { type: String, required: true },
+  photo: { type: String, required: true },
+});
+
+const PostSchema = mongoose.model("Post", Post);
+
+export default PostSchema;
       
+```
+
+- Cloudinary
+```
+router.route("/").post(async (req, res) => {
+  try {
+    const { name, prompt, photo } = req.body;
+    const photoUrl = await cloudinary.uploader.upload(photo);
+
+    const newPost = await Post.create({
+      name,
+      prompt,
+      photo: photoUrl.url,
+    });
+    res.status(200).json({ success: true, data: newPost });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error });
+  }
+});
+
 ```
 
 ## Format Configuration
@@ -139,56 +153,49 @@ export default query;
 ## Folder Structure
 ```
 .
-|-- README.md
-|-- firebaseStore.ts
-|-- firebaseStoreAdmin.ts
-|-- next-env.d.ts
-|-- next.config.js
-|-- package.json
-|-- postcss.config.js
-|-- public
-|   |-- favicon.ico
-|   |-- google.png
-|   |-- next.svg
-|   |-- openAI.png
-|   |-- thirteen.svg
-|   `-- vercel.svg
-|-- serviceAccountKey.json
-|-- src
-|   |-- app
-|   |   |-- chat
-|   |   |   `-- [id]
-|   |   |       `-- page.tsx
-|   |   |-- head.tsx
-|   |   |-- layout.tsx
-|   |   `-- page.tsx
-|   |-- components
-|   |   |-- Chat.tsx
-|   |   |-- ChatInput.tsx
-|   |   |-- ChatRow.tsx
-|   |   |-- ClientProvider.tsx
-|   |   |-- Login.tsx
-|   |   |-- Message.tsx
-|   |   |-- ModelSelection.tsx
-|   |   |-- NewChat.tsx
-|   |   |-- SessionProvider.tsx
-|   |   `-- SideBar.tsx
-|   |-- lib
-|   |   |-- openAI.ts
-|   |   `-- queryApi.ts
-|   |-- pages
-|   |   `-- api
-|   |       |-- askQuestion.ts
-|   |       |-- auth
-|   |       |   `-- [...nextauth].ts
-|   |       `-- getEngines.ts
-|   `-- styles
-|       `-- globals.css
-|-- tailwind.config.js
-|-- tsconfig.json
-|-- typings.d.ts
-|-- yarn-error.log
-`-- yarn.lock
+|-- client
+|   |-- index.html        
+|   |-- package-lock.json 
+|   |-- package.json      
+|   |-- postcss.config.cjs
+|   |-- public
+|   |   `-- vite.svg      
+|   |-- src
+|   |   |-- App.css
+|   |   |-- App.tsx
+|   |   |-- assets
+|   |   |   |-- download.png
+|   |   |   |-- index.js
+|   |   |   |-- logo.svg
+|   |   |   `-- preview.png
+|   |   |-- components
+|   |   |   |-- Card.tsx
+|   |   |   |-- FormField.tsx
+|   |   |   |-- Loader.tsx
+|   |   |   `-- index.ts
+|   |   |-- constants
+|   |   |   `-- index.ts
+|   |   |-- index.css
+|   |   |-- main.tsx
+|   |   |-- pages
+|   |   |   |-- CreatePost.tsx
+|   |   |   |-- Home.tsx
+|   |   |   `-- index.js
+|   |   `-- utils
+|   |       `-- index.ts
+|   |-- tailwind.config.cjs
+|   `-- vite.config.js
+`-- server
+    |-- index.js
+    |-- mongodb
+    |   |-- connect.js
+    |   `-- models
+    |       `-- post.js
+    |-- package-lock.json
+    |-- package.json
+    `-- routes
+        |-- dalleRoutes.js
+        `-- postRoutes.js
 
 ```
 
@@ -199,21 +206,19 @@ export default query;
 OPENAI_API_KEY=
 ```
 
-- Generate a key from Firebae Web SDK configuration.
+- Generate using your DB cluster connect option.
 ```
-GOOGLE_ID=
-GOOGLE_SECRET=
-```
-
-- Generate using command [Secret](https://next-auth.js.org/configuration/options#secret).
-```
-NEXTAUTH_SECRET=
+MONGODB_URL=
 ```
 
-- Generate the service key from firebase and use the link to format it [Text Fixer](https://www.textfixer.com/tools/remove-line-breaks.php), once that is done add is as a value.
+- Generated on the dashboard of Cloudinary under the section "Product Environment Credentials".
 ```
-FIREBASE_SERVICE_ACCOUNT_KEY= 
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 ```
+
+
 
 
 
