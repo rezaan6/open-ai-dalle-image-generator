@@ -20,10 +20,10 @@
 In summary, this project is a full-stack web application that combines the Vite framework, Tailwind CSS, Prettier, ExpressJS, Cloudinary, and MongoDB to deliver a dynamic and efficient user experience.The output of this project is a real-time, interactive application that allows users to generate unique images and art based on their descriptions in natural language. The generated content is then stored and managed using Cloudinary, making it accessible and shareable across the web.
 
 ### Client
-The "client" folder is a front-end application built using the [Vite framework](https://github.com/vitejs/vite). It utilizes the [Tailwind CSS](https://tailwindcss.com/) framework for styling and the [Prettier](https://prettier.io/) library for code formatting to deliver a visually appealing and well-structured user interface. It also support [TypeScript](https://www.typescriptlang.org/)
+The "client" folder is a front-end application built using the [Vite framework](https://github.com/vitejs/vite). It utilizes the [Tailwind CSS](https://tailwindcss.com/) framework for styling and the [Prettier](https://prettier.io/) library for code formatting to deliver a visually appealing and well-structured user interface. It also support [TypeScript](https://www.typescriptlang.org/), and its deployed using [Vercel](https://vercel.com/docs)
 
 ### Server
-The "server" folder is a back-end component powered by [ExpressJS](https://expressjs.com/). It uses [Cloudinary](https://cloudinary.com/) to store and manage images, and is connected to a [MongoDB](https://mongodb.com) database for persistent data storage. It also utilizes the OpenAI's DALL·E 2 AI system, which generates realistic images and art from a description in natural language.
+The "server" folder is a back-end component powered by [ExpressJS](https://expressjs.com/). It uses [Cloudinary](https://cloudinary.com/) to store and manage images, and is connected to a [MongoDB](https://mongodb.com) database for persistent data storage. It also utilizes the OpenAI's DALL·E 2 AI system, which generates realistic images and art from a description in natural language and its deployed using [Render](https://render.com/)
 
 
 ## Tech Stack
