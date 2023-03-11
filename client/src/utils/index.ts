@@ -1,5 +1,5 @@
-// import FileSaver from "file-saver";
-import fileDownload from "js-file-download";
+import FileSaver from "file-saver";
+
 import { surpriseMePrompts } from "../constants";
 
 export function getRandomPrompt(prompt: string) {
@@ -12,6 +12,21 @@ export function getRandomPrompt(prompt: string) {
 }
 
 export async function downloadImage(_id: string, photo: any) {
-  // FileSaver.saveAs(photo, `download-${_id}.jpg`);
-  fileDownload(photo, `download-${_id}.jpg`);
+
+  fetch(photo)
+  .then(res => res.blob())
+  .then(data => {
+    FileSaver.saveAs(data, `download-${_id}.jpg`);
+  });
+
+  // fetch(photo, {
+  //   method: "GET",
+  //   responseType: "blob",
+  // })
+  //   .then((res) => res.blob())
+  //   .then((data) => {
+  //     const blob = new Blob([data], { type: "image/png" });
+    
+  //   });
+
 }
