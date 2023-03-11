@@ -16,7 +16,8 @@ export async function downloadImage(_id: string, photo: any) {
   fetch(photo)
   .then(res => res.blob())
   .then(data => {
-    FileSaver.saveAs(data, `download-${_id}.jpg`);
+    const blob = new Blob([data], { type: "image/png" });
+    FileSaver.saveAs(blob, `download-${_id}.jpg`);
   });
 
   // fetch(photo, {
