@@ -1,4 +1,4 @@
-# Open AI Chatbot
+# Open AI DALLE2 Image Generator
 
 ## Table of Contents
 
