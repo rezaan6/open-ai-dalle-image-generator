@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Loader, FormField, Card } from "../components";
 
+const baseUrl = import.meta.env.VITE_BASEURL ?? '';
+
 interface Post {
   _id: string;
   name: string;
@@ -40,7 +42,7 @@ const Home: React.FC = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://open-ai-dalle-2-image-generator.onrender.com/api/v1/post",
+          `${baseUrl}/post`,
           {
             method: "GET",
             headers: {

@@ -5,6 +5,8 @@ import { preview } from "../assets";
 import { getRandomPrompt } from "../utils";
 import { FormField, Loader } from "../components";
 
+const baseUrl = import.meta.env.VITE_BASEURL ?? '';
+
 const CreatePost = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -20,8 +22,9 @@ const CreatePost = () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
+      
         const response = await fetch(
-          "https://open-ai-dalle-2-image-generator.onrender.com/api/v1/dalle",
+          `${baseUrl}/dalle`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -48,7 +51,7 @@ const CreatePost = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://open-ai-dalle-2-image-generator.onrender.com/api/v1/post",
+          `${baseUrl}/post`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
