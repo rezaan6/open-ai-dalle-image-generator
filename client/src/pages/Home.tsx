@@ -40,30 +40,40 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
-      try {
-        const response = await fetch(
-          `${baseUrl}/post`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+      let success = false;
+      let retries = 0;
 
-        if (response.ok) {
-          const result = await response.json();
-          setAllPosts(result.data.reverse());
+      while (!success && retries < 5) {
+        try {
+          const response = await fetch(
+            `${baseUrl}/post`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (response.ok) {
+            const result = await response.json();
+            setAllPosts(result.data.reverse());
+            success = true;
+          } else {
+            retries++;
+          }
+        } catch (error) {
+          retries++;
+          alert(error);
         }
-      } catch (error) {
-        alert(error);
-      } finally {
-        setLoading(false);
       }
+
+      setLoading(false);
     };
 
     fetchPosts();
   }, []);
+
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     clearTimeout(searchTimeout || undefined);

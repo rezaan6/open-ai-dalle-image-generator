@@ -25,7 +25,7 @@ router.route("/").get(async (req, res) => {
     });
     res.status(200).json({ success: true, data: updatedPosts });
   } catch (error) {
-    res.status(200).json({ success: false, message: error });
+    res.status(404).json({ success: false, message: error });
   }
 });
 
