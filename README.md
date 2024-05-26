@@ -75,25 +75,25 @@ The code then extracts the image data from the response and packages it in a JSO
 In the event of an error, the error message is logged to the console and sent back to the client with a status code of 500 (Internal Server Error), indicating that an internal server error occurred.
 
 ```
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-
-const openai = new OpenAIApi(configuration);
 
 router.route("/").post(async (req, res) => {
   try {
     const { prompt } = req.body;
-    const aiResponse = await openai.createImage({
+    const aiResponse = await openai.images.generate({
       prompt,
+      model:"dall-e-3",
       n: 1,
-      size: "256x256",
+      size: "1024x1024",
+      quality:"standard",
       response_format: "b64_json",
     });
 
-    const image = aiResponse.data.data[0].b64_json;
+    const image = aiResponse.data[0].b64_json;
 
     res.status(200).json({ photo: image });
   } catch (error) {
