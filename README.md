@@ -1,4 +1,4 @@
-# Open AI DALLE2 Image Generator
+# Open AI DALLE Image Generator
 
 ## Table of Contents
 
@@ -7,7 +7,7 @@
     - [Server](#server)
 - [Tech Stack](#tech-stack)
 - [Features](#features-wait-until-gifs-load)
-- [Open AI DALL·E 2 API](#open-ai-dall-e-2-api)
+- [Open AI DALL·E API](#open-ai-dall-e-api)
 - [Database Structure](#database-structure)
     - [MongoDB](#mongodb)
     - [Cloudinary](#cloudinary)
