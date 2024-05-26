@@ -23,7 +23,7 @@ In summary, this project is a full-stack web application that combines the Vite 
 The "client" folder is a front-end application built using the [Vite framework](https://github.com/vitejs/vite). It utilizes the [Tailwind CSS](https://tailwindcss.com/) framework for styling and the [Prettier](https://prettier.io/) library for code formatting to deliver a visually appealing and well-structured user interface. It also support [TypeScript](https://www.typescriptlang.org/), and its deployed using [Vercel](https://vercel.com/docs)
 
 ### Server
-The "server" folder is a back-end component powered by [ExpressJS](https://expressjs.com/). It uses [Cloudinary](https://cloudinary.com/) to store and manage images, and is connected to a [MongoDB](https://mongodb.com) database for persistent data storage. It also utilizes the OpenAI's DALL·E 2 AI system, which generates realistic images and art from a description in natural language and its deployed using [Render](https://render.com/)
+The "server" folder is a back-end component powered by [ExpressJS](https://expressjs.com/). It uses [Cloudinary](https://cloudinary.com/) to store and manage images, and is connected to a [MongoDB](https://mongodb.com) database for persistent data storage. It also utilizes the OpenAI's DALL·E AI system, which generates realistic images and art from a description in natural language and its deployed using [Render](https://render.com/)
 
 
 ## Tech Stack
@@ -65,7 +65,7 @@ The "server" folder is a back-end component powered by [ExpressJS](https://expre
 ![Generate Image](https://user-images.githubusercontent.com/72515147/224489993-fa8b0408-ab11-4150-9e36-267f1b8793c9.gif)
 
 
-## Open AI DALL E 2 API
+## Open AI DALL E API
 - `dalleRoutes.js`
 
 When a POST request is received at the root URL ("/"), the function defined in the code is executed. It starts by extracting the prompt from the request body and using it as a parameter in a call to the createImage method of the OpenAIApi instance. This method generates an image based on the prompt and returns the result in base64 encoded JSON format.
